@@ -14,3 +14,7 @@
 .person-shoutout {
     height: 200px;
 }
+
+.selected {
+    color: yellow;
+}

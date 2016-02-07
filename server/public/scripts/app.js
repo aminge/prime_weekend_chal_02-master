@@ -13,7 +13,7 @@ function getData(){
             personArray = data.people;
 
             for (i = 1; i < (personArray.length + 1); i++) {
-                $('.pagination').append('<li><a href="#">' + i + '</a></li>')
+                $('.pagination').append('<li data-index="' + i + '"><a href="#">' + i + '</a></li>');
             }
 
             displayPerson(personArray[onPerson - 1]);
@@ -38,7 +38,8 @@ function getData(){
 
             $('.pagination').on('click', 'li', function() {
                 removePerson();
-
+                personNumber = $(this).data('index');
+                displayPerson(personArray[personNumber - 1]);
             });
 
 
