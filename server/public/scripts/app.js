@@ -38,8 +38,8 @@ function getData(){
 
             $('.pagination').on('click', 'li', function() {
                 removePerson();
-                personNumber = $(this).data('index');
-                displayPerson(personArray[personNumber - 1]);
+                onPerson = $(this).data('index');
+                displayPerson(personArray[onPerson - 1]);
             });
 
 
