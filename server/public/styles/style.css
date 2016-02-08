@@ -15,6 +15,31 @@
     height: 200px;
 }
 
-.pagination > li > a.selected {
-    background-color: yellow;
+ul.pageordering {
+    display: inline-block;
+    margin: 20px 0;
 }
+
+ul.pageordering li {
+    display: inline;
+}
+
+ul.pageordering li a {
+    color: black;
+    padding: 8px 16px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0 4px;
+}
+
+ul.pageordering li a:hover {
+    border: 2px solid black;
+}
+
+.pageordering > li > a.selected {
+    background-color: lightcoral;
+}
+
+/*.pagination > li > a.selected {*/
+    /*background-color: yellow;*/
+/*}*/

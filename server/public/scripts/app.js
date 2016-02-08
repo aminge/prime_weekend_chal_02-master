@@ -14,7 +14,8 @@ function getData(){
             personArray = data.people;
 
             for (i = 0; i < (personArray.length); i++) {
-                $('.pagination').append('<li data-index="' + i + '"><a href="#">' + (i + 1) + '</a></li>');
+                $('.pageordering').append('<li data-index="' + i + '"><a href="#">' + (i + 1) + '</a></li>');
+                //$('.pageordering').children().last().data('index', i);
             }
 
             displayPerson(onPerson);
@@ -45,7 +46,7 @@ function getData(){
                 startTimer();
             });
 
-            $('.pagination').on('click', 'li', function() {
+            $('.pageordering').on('click', 'li', function() {
                 removePerson();
                 onPerson = $(this).data('index');
                 //delay(400);
@@ -63,8 +64,8 @@ function getData(){
 }
 
 function displayPerson(personIndex) {
-    $('.pagination .selected').removeClass('selected');
-    $('.pagination li[data-index="' + personIndex + '"] a').addClass('selected');
+    $('.pageordering .selected').removeClass('selected');
+    $('.pageordering li[data-index="' + personIndex + '"] a').addClass('selected');
     var person = personArray[personIndex];
     var img = '<img src="' + person.picture + '" />';
     $('#personContainer').append('<div><h2>' + person.name + '</h2>' + img + '<p>' + person.favoriteMovie1 + '</p><p>'
