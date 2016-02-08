@@ -66,7 +66,8 @@ function displayPerson(personIndex) {
     $('.pagination .selected').removeClass('selected');
     $('.pagination li[data-index="' + personIndex + '"] a').addClass('selected');
     var person = personArray[personIndex];
-    $('#personContainer').append('<div><h2>' + person.name + '</h2><p>' + person.favoriteMovie1 + '</p><p>'
+    var img = '<img src="' + person.picture + '" />';
+    $('#personContainer').append('<div><h2>' + person.name + '</h2>' + img + '<p>' + person.favoriteMovie1 + '</p><p>'
         + person.favoriteMovie2 + '</p><p>' + person.favoriteSong + '</p></div>');
     $('#personContainer').children().last().stop(true, true).hide().delay(400).fadeIn(400);
 }
