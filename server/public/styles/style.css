@@ -30,16 +30,18 @@ ul.pageordering li a {
     border: 1px solid black;
     border-radius: 5px;
     margin: 0 4px;
+    text-decoration: none;
 }
 
 ul.pageordering li a:hover {
     border: 2px solid black;
+    font-weight: bold;
+    margin: 0 3px;
 }
 
-.pageordering > li > a.selected {
+ul.pageordering li a.selected {
     background-color: lightcoral;
+    border: 2px solid black;
+    font-weight: bold;
+    margin: 0 3px;
 }
-
-/*.pagination > li > a.selected {*/
-    /*background-color: yellow;*/
-/*}*/

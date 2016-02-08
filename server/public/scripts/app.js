@@ -1,7 +1,7 @@
 var onPerson = 0;
 var intervalID = 0;
 
-$(document).ready(function(){
+$(document).ready(function() {
     getData();
 });
 
