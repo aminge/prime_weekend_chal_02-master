@@ -1,4 +1,5 @@
-var onPerson = 1;
+var onPerson = 0;
+var intervalID = 0;
 
 $(document).ready(function(){
     getData();
@@ -12,54 +13,77 @@ function getData(){
 
             personArray = data.people;
 
-            for (i = 1; i < (personArray.length + 1); i++) {
-                $('.pagination').append('<li data-index="' + i + '"><a href="#">' + i + '</a></li>');
+            for (i = 0; i < (personArray.length); i++) {
+                $('.pagination').append('<li data-index="' + i + '"><a href="#">' + (i + 1) + '</a></li>');
             }
 
-            displayPerson(personArray[onPerson - 1]);
+            displayPerson(onPerson);
+
+            startTimer();
 
             $('#leftButton').on('click', function() {
                 removePerson();
                 onPerson--;
-                if (onPerson < 1) {
+                if (onPerson < 0) {
                     onPerson += personArray.length;
                 }
-                displayPerson(personArray[onPerson - 1])
+                displayPerson(onPerson);
+
+                clearInterval(intervalID);
+                startTimer();
             });
 
             $('#rightButton').on('click', function() {
                 removePerson();
                 onPerson++;
-                if (onPerson > personArray.length) {
+                if (onPerson >= personArray.length) {
                     onPerson -= personArray.length;
                 }
-                displayPerson(personArray[onPerson - 1]);
+                displayPerson(onPerson);
+
+                clearInterval(intervalID);
+                startTimer();
             });
 
             $('.pagination').on('click', 'li', function() {
                 removePerson();
                 onPerson = $(this).data('index');
-                displayPerson(personArray[onPerson - 1]);
+                //delay(400);
+                displayPerson(onPerson);
+
+                clearInterval(intervalID);
+                startTimer();
             });
-
-
         },
+
         error: function() {
             console.log('ERROR: Unable to contact the server.');
         }
-
     });
 }
 
-function displayPerson(person) {
+function displayPerson(personIndex) {
+    $('.pagination .selected').removeClass('selected');
+    $('.pagination li[data-index="' + personIndex + '"] a').addClass('selected');
+    var person = personArray[personIndex];
     $('#personContainer').append('<div><h2>' + person.name + '</h2><p>' + person.favoriteMovie1 + '</p><p>'
         + person.favoriteMovie2 + '</p><p>' + person.favoriteSong + '</p></div>');
-    //$('#personContainer').append('<h2>' + person.name + '</h2>');
-    //$('#personContainer').append('<p>' + person.favoriteMovie1 + '</p>');
-    //$('#personContainer').append('<p>' + person.favoriteMovie2 + '</p>');
-    //$('#personContainer').append('<p>' + person.favoriteSong + '</p>');
+    $('#personContainer').children().last().stop(true, true).hide().delay(400).fadeIn(400);
 }
 
 function removePerson() {
-    $('#personContainer').children().remove();
+    $('#personContainer').children().stop(true, true).fadeOut(400, function() {
+        $(this).remove();
+    });
+}
+
+function startTimer() {
+    intervalID = setInterval(function() {
+        removePerson();
+        onPerson++;
+        if (onPerson >= personArray.length) {
+            onPerson -= personArray.length;
+        }
+        displayPerson(onPerson);
+    }, 10000);
 }
