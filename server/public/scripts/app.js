@@ -11,50 +11,13 @@ function getData(){
         url:"/data",
         success: function(data) {
 
-            personArray = data.people;
-
-            for (i = 0; i < (personArray.length); i++) {
-                $('.pageordering').append('<li data-index="' + i + '"><a href="#">' + (i + 1) + '</a></li>');
-                //$('.pageordering').children().last().data('index', i);
-            }
-
+            personArray = data.people
+            appendToDOM(personArray);
             displayPerson(onPerson);
-
             startTimer();
-
-            $('#leftButton').on('click', function() {
-                removePerson();
-                onPerson--;
-                if (onPerson < 0) {
-                    onPerson += personArray.length;
-                }
-                displayPerson(onPerson);
-
-                clearInterval(intervalID);
-                startTimer();
-            });
-
-            $('#rightButton').on('click', function() {
-                removePerson();
-                onPerson++;
-                if (onPerson >= personArray.length) {
-                    onPerson -= personArray.length;
-                }
-                displayPerson(onPerson);
-
-                clearInterval(intervalID);
-                startTimer();
-            });
-
-            $('.pageordering').on('click', 'li', function() {
-                removePerson();
-                onPerson = $(this).data('index');
-                //delay(400);
-                displayPerson(onPerson);
-
-                clearInterval(intervalID);
-                startTimer();
-            });
+            $('#leftButton').on('click', moveLeft);
+            $('#rightButton').on('click', moveRight);
+            $('.pageordering').on('click', 'li', skipToClickedOnPerson);
         },
 
         error: function() {
@@ -88,4 +51,41 @@ function startTimer() {
         }
         displayPerson(onPerson);
     }, 10000);
+}
+
+function skipToClickedOnPerson() {
+    removePerson();
+    onPerson = $(this).data('index');
+    displayPerson(onPerson);
+    clearInterval(intervalID);
+    startTimer();
+}
+
+function moveLeft() {
+    removePerson();
+    onPerson--;
+    if (onPerson < 0) {
+        onPerson += personArray.length;
+    }
+    displayPerson(onPerson);
+    clearInterval(intervalID);
+    startTimer();
+}
+
+function moveRight() {
+    removePerson();
+    onPerson++;
+    if (onPerson >= personArray.length) {
+        onPerson -= personArray.length;
+    }
+    displayPerson(onPerson);
+    clearInterval(intervalID);
+    startTimer();
+}
+
+function appendToDOM(personArray) {
+    for (i = 0; i < (personArray.length); i++) {
+        $('.pageordering').append('<li data-index="' + i + '"><a href="#">' + (i + 1) + '</a></li>');
+        //$('.pageordering').children().last().data('index', i);
+    }
 }
